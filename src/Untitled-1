@@ -1,0 +1,17 @@
+IGa=imgaussfilt(Ia,sigma);
+IGABT=imgaussfilt(IA,sigma);
+Ita=Ia-IGa;
+ItABT=IA-IGABT;
+IM=Ita;
+Ita=imgaussfilt(Ita,sigma2);
+ItABT=imgaussfilt(ItABT,sigma2);
+th=mean(mean(IGa))*0.17; 
+IM(IM<th)=0; IM(IM>=th)=1;
+IM=imgaussfilt(IM,sigma2);
+IM=im2uint16(bwareaopen(IM,27));
+IM(IM>=1)=1;
+Ifa=uint16(Ita).*IM;
+IfABT=uint16(ItABT).*IM;
+%valeur
+Iacceptor=mean(nonzeros(Ifa));
+IABT=mean(nonzeros(IfABT));
